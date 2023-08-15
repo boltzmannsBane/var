@@ -11,7 +11,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 find_package(Drogon CONFIG REQUIRED)
 
 # Add the executable
-add_executable(MyDrogonApp main.cc)
+add_executable(MyDrogonApp main.cc controller.cc)
 
 # Link Drogon libraries to the executable
 target_link_libraries(MyDrogonApp PRIVATE Drogon::Drogon)
