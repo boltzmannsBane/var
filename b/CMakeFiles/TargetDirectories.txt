@@ -1,0 +1,3 @@
+/Users/amygdala/cod/drogon/b/CMakeFiles/MyDrogonApp.dir
+/Users/amygdala/cod/drogon/b/CMakeFiles/edit_cache.dir
+/Users/amygdala/cod/drogon/b/CMakeFiles/rebuild_cache.dir
