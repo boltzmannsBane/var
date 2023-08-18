@@ -1,1 +1,14 @@
-build/compile_commands.json
+[
+  {
+    "directory": "/Users/amygdala/cod/drogon/out",
+    "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DHAS_YAML_CPP -isystem /usr/local/include -isystem /opt/homebrew/include -isystem /Users/amygdala/miniconda3/include -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/MyDrogonApp.dir/main.cc.o -c /Users/amygdala/cod/drogon/main.cc",
+    "file": "/Users/amygdala/cod/drogon/main.cc",
+    "output": "CMakeFiles/MyDrogonApp.dir/main.cc.o"
+  },
+  {
+    "directory": "/Users/amygdala/cod/drogon/out",
+    "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -DHAS_YAML_CPP -isystem /usr/local/include -isystem /opt/homebrew/include -isystem /Users/amygdala/miniconda3/include -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/MyDrogonApp.dir/controller.cc.o -c /Users/amygdala/cod/drogon/controller.cc",
+    "file": "/Users/amygdala/cod/drogon/controller.cc",
+    "output": "CMakeFiles/MyDrogonApp.dir/controller.cc.o"
+  }
+]
