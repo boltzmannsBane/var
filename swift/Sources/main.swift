@@ -1,13 +1,19 @@
-// The Swift Programming Language
-// https://docs.swift.org/swift-book
+import Foundation
+import NIO
+import NIOHTTP1
 
-func sayHello(name: String) {
-    print("Hello, \(name)!")
+let server = HTTPServer(group: MultiThreadedEventLoopGroup(numberOfThreads: System.coreCount))
+
+server.listen(on: 8080) { (request, response) in
+    switch request.uri {
+    case "/":
+        response.send("Hello, world!")
+    case "/hello":
+        response.send("Hello, \(request.queryParameters["name"] ?? "world")!")
+    default:
+        response.statusCode = .notFound
+        response.send("Not found")
+    }
 }
 
-if CommandLine.arguments.count != 2 {
-    print("Usage: hello NAME")
-} else {
-    let name = CommandLine.arguments[1]
-    sayHello(name: name)
-}
+print("Server started on port 8080")

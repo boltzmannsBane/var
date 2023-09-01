@@ -1,5 +1,4 @@
 // swift-tools-version: 5.8
-// The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
 
@@ -11,5 +10,10 @@ let package = Package(
         .executableTarget(
             name: "swift",
             path: "Sources"),
+    ],
+    dependencies: [
+        .product(name: "NIOCore", package: "NIO"),
+        .product(name: "NIOPosix", package: "NIO"),
+        .product(name: "NIOHTTP1", package: "NIO")
     ]
 )
