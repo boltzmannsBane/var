@@ -6,6 +6,7 @@ extern "C" {
 #endif
 
 void log_start(char* req_id, char* operation, char* timestamp, char* caller_uid);
+void log_success(char* req_id, int code,  char* status, char* timestamp);
 void log_error(const char* msg);
 void init_logger();
 
