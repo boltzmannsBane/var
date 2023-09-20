@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <syslog.h>
 #include <event2/event.h>
 #include <event2/buffer.h>
 #include <event2/http.h>
@@ -11,6 +12,8 @@ int main() {
     struct event_base *base = event_base_new();
     struct evhttp *http = evhttp_new(base);
     evhttp_bind_socket(http, "0.0.0.0", 8080);
+
+    setlogmask (LOG_UPTO (LOG_NOTICE));
     openlog("cserv", LOG_PID | LOG_CONS, LOG_USER);
 
     // Define routes
