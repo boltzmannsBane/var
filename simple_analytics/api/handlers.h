@@ -13,10 +13,8 @@
 void root_callback(struct evhttp_request *req, void *arg) {
     char* req_id = generate_unique_id();
 
-    log_info("hello world start");
-
-    syslog(LOG_INFO, "RequestID: %s, Operation: %s, Time: %s, Caller: %s",
-       req_id, "hello_world", get_current_timestamp(), "caller_info");
+    log_info("RequestID: %s, Operation: %s, Time: %s, Caller: %s",
+         req_id, "hello_world", get_current_timestamp(), "caller_info");
 
     struct evbuffer *buf = evbuffer_new();
     if (!buf) {
@@ -26,12 +24,12 @@ void root_callback(struct evhttp_request *req, void *arg) {
 
     if (evhttp_request_get_command(req) != EVHTTP_REQ_GET) {
         evbuffer_add_printf(buf, "Only GET method is allowed!");
-        syslog(LOG_ERR, "RequestID: %s, Status: Error, Code: %d, Message: %s, Time: %s",
-               req_id, 500, "error_message", get_current_timestamp());
+        // log_error(sprintf("RequestID: %s, Status: Error, Code: %d, Message: %s, Time: %s",
+        //        req_id, 500, "error_message", get_current_timestamp()));
         evhttp_send_reply(req, 405, "Method Not Allowed", buf);
     } else {
         evbuffer_add_printf(buf, "Hello, World!");
-        syslog(LOG_INFO, "RequestID: %s, Code: %d, Status: %s, Time: %s", req_id, HTTP_OK, "Success", get_current_timestamp());
+        // log_info(sprintf("RequestID: %s, Code: %d, Status: %s, Time: %s", req_id, HTTP_OK, "Success", get_current_timestamp()));
         evhttp_send_reply(req, HTTP_OK, "OK", buf);
     }
 
