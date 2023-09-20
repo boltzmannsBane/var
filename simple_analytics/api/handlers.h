@@ -7,9 +7,13 @@
 #include <event2/http.h>
 
 #include "utils.h"
+#include "wrappers/spdlog/spdlog_wrapper.h"
+
 
 void root_callback(struct evhttp_request *req, void *arg) {
     char* req_id = generate_unique_id();
+
+    log_info("hello world start");
 
     syslog(LOG_INFO, "RequestID: %s, Operation: %s, Time: %s, Caller: %s",
        req_id, "hello_world", get_current_timestamp(), "caller_info");
