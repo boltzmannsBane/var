@@ -3,6 +3,19 @@
 #include <string.h>
 #include <syslog.h>
 #include <sys/time.h>
+#include <stdbool.h>
+
+// Define the error type
+typedef struct {
+    bool has_error;
+    const char* message;
+} Error;
+
+// Define the generic result type
+typedef struct {
+    void* value;
+    Error error;
+} Result;
 
 #define TIMESTAMP_SIZE 100
 
