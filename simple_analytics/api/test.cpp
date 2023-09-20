@@ -9,7 +9,6 @@ extern "C" {
 TEST(ServerTest, RootCallbackTest) {
     struct evhttp_request mock_request;
     mock_request.input_buffer = mock_evbuffer_new();
-    mock_request.output_buffer = mock_evbuffer_new();
     mock_request.response_code = 0; // Not yet set
     mock_request.uri = "/";
 
@@ -23,7 +22,6 @@ TEST(ServerTest, RootCallbackTest) {
 
     // Cleanup
     mock_evbuffer_free(mock_request.input_buffer);
-    mock_evbuffer_free(mock_request.output_buffer);
 }
 
 int main(int argc, char **argv) {
