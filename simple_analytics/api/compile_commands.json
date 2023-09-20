@@ -8,5 +8,10 @@
     "directory": "/Users/amygdala/cod/homebin/simple_analytics/api",
     "command": "g++ -I./deps/gtest/include/ -L./deps/gtest/lib/ -lgtest -lgtest_main -lgmock -pthread -levent -I./deps/libevent/include/ -L./deps/libevent/.libs/ -o test test.cpp",
     "file": "/Users/amygdala/cod/homebin/simple_analytics/api/test.cpp"
+  },
+  {
+    "directory": "/Users/amygdala/cod/homebin/simple_analytics/api",
+    "command": "g++ -I./deps/spdlog/include -c ./wrappers/spdlog/spdlog_wrapper.cpp -o spdlog_wrapper.o",
+    "file": "/Users/amygdala/cod/homebin/simple_analytics/api/wrappers/spdlog/spdlog_wrapper.cpp"
   }
 ]

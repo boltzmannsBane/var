@@ -1,3 +1,8 @@
-gcc -I./deps/libevent/include/ -L./deps/libevent/.libs/ -levent -levent_core -levent_extra -o server server.c
+# Compile the spdlog wrapper
+g++ -I./deps/spdlog/include -c ./wrappers/spdlog/spdlog_wrapper.cpp -o spdlog_wrapper.o
 
-# g++ -o test test.cpp -I/deps/gtest/include/ -L/deps/gtest/lib/ -lgtest -lgtest_main -lgmock -pthread -levent -I/deps/libevent/include/ -L/deps/libevent/lib/
+# Compile the server.c code
+gcc -I./deps/libevent/include/ -c server.c -o server.o
+
+# Link everything together
+gcc server.o spdlog_wrapper.o -L./deps/libevent/.libs/ -levent -levent_core -levent_extra -lstdc++ -o server
