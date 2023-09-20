@@ -5,7 +5,7 @@
 extern "C" {
 #endif
 
-void log_info(const char* msg, ...);
+void log_start(char* req_id, char* operation, char* timestamp, char* caller_uid);
 void log_error(const char* msg);
 void init_logger();
 

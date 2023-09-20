@@ -3,26 +3,10 @@
 #include "spdlog_wrapper.h"
 
 extern "C" {
-  void log_info(const char* fmt, ...) {
-        va_list args;
-        va_start(args, fmt);
 
-        // Estimate the required buffer size
-        va_list args_copy;
-        va_copy(args_copy, args);
-        int required_size = vsnprintf(nullptr, 0, fmt, args_copy) + 1;
-        va_end(args_copy);
-
-        // Create a buffer of the required size
-        std::vector<char> buffer(required_size);
-
-        // Format the string into the buffer
-        vsnprintf(buffer.data(), required_size, fmt, args);
-
-        // Log the message
-        spdlog::info(buffer.data());
-
-        va_end(args);
+    void log_start(char* req_id, char* operation, char* timestamp, char* caller_uid) {
+        spdlog::info("RequestID: {}, Operation: {}, Time: {}, Caller: {}",
+         req_id, operation, timestamp, caller_uid);
     }
 
     void log_error(const char* msg) {
