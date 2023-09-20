@@ -28,7 +28,6 @@ void root_callback(struct evhttp_request *req, void *arg) {
         evhttp_send_reply(req, 405, "Method Not Allowed", buf);
     } else {
         evbuffer_add_printf(buf, "Hello, World!");
-        // log_info("RequestID: %s, Code: %d, Status: %s, Time: %s", req_id, HTTP_OK, "Success", get_current_timestamp());
         log_success(req_id, HTTP_OK, "success", get_current_timestamp());
         evhttp_send_reply(req, HTTP_OK, "OK", buf);
     }
