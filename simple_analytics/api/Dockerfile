@@ -1,7 +1,13 @@
-FROM debian:bullseye-slim
+FROM ubuntu:latest
 
-# Update and install build tools
 RUN apt-get update && \
-    apt-get install -y libgtest-dev build-essential libevent-dev
+    apt-get install -y libgtest-dev build-essential libevent-dev git cmake && \
+    cd deps && \
+    git clone https://github.com/google/googletest.git && \
+    cd googletest && \
+    mkdir build && \
+    cd build && \
+    cmake .. && \
+    make
 
 WORKDIR /app
