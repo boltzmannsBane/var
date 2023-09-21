@@ -4,7 +4,7 @@
 
 using namespace drogon;
 
-class Handler : public drogon::HttpController<Handler> {
+class Handler : public HttpController<Handler> {
 public:
     METHOD_LIST_BEGIN
 
@@ -16,16 +16,16 @@ public:
 
     METHOD_LIST_END
 
-    void handleHello(const drogon::HttpRequestPtr &req,
-                     std::function<void(const drogon::HttpResponsePtr &)> &&callback);
+    void handleHello(const HttpRequestPtr &req,
+                     std::function<void(const HttpResponsePtr &)> &&callback);
 
-    void handleStatus(const drogon::HttpRequestPtr &req,
-                      std::function<void(const drogon::HttpResponsePtr &)> &&callback);
+    void handleStatus(const HttpRequestPtr &req,
+                      std::function<void(const HttpResponsePtr &)> &&callback);
 
-    void handleName(const drogon::HttpRequestPtr &req,
-                    std::function<void(const drogon::HttpResponsePtr &)> &&callback);
+    void handleName(const HttpRequestPtr &req,
+                    std::function<void(const HttpResponsePtr &)> &&callback);
 
-    void handleData(const drogon::HttpRequestPtr &req,
-                    std::function<void(const drogon::HttpResponsePtr &)> &&callback);
+    void handleData(const HttpRequestPtr &req,
+                    std::function<void(const HttpResponsePtr &)> &&callback);
 };
 

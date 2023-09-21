@@ -1,22 +1,24 @@
 #include "handlers/Handler.h"
 
-void Handler::handleHello(const drogon::HttpRequestPtr &req,
-                                    std::function<void(const drogon::HttpResponsePtr &)> &&callback) {
-    auto resp = drogon::HttpResponse::newHttpResponse();
+using namespace drogon;
+
+void Handler::handleHello(const HttpRequestPtr &req,
+                                    std::function<void(const HttpResponsePtr &)> &&callback) {
+    auto resp = HttpResponse::newHttpResponse();
     resp->setBody("Hello from /api/hello endpoint!");
     callback(resp);
 }
 
-void Handler::handleStatus(const drogon::HttpRequestPtr &req,
-                                     std::function<void(const drogon::HttpResponsePtr &)> &&callback) {
-    auto resp = drogon::HttpResponse::newHttpResponse();
+void Handler::handleStatus(const HttpRequestPtr &req,
+                                     std::function<void(const HttpResponsePtr &)> &&callback) {
+    auto resp = HttpResponse::newHttpResponse();
     resp->setBody("Server is up and running!");
     callback(resp);
 }
 
-void Handler::handleName(const drogon::HttpRequestPtr &req,
-                                   std::function<void(const drogon::HttpResponsePtr &)> &&callback) {
-    auto resp = drogon::HttpResponse::newHttpResponse();
+void Handler::handleName(const HttpRequestPtr &req,
+                                   std::function<void(const HttpResponsePtr &)> &&callback) {
+    auto resp = HttpResponse::newHttpResponse();
     auto json = req->getJsonObject();
 
     if (json && json->isMember("name")) {
@@ -29,9 +31,9 @@ void Handler::handleName(const drogon::HttpRequestPtr &req,
     callback(resp);
 }
 
-void Handler::handleData(const drogon::HttpRequestPtr &req,
-                                   std::function<void(const drogon::HttpResponsePtr &)> &&callback) {
-    auto resp = drogon::HttpResponse::newHttpResponse();
+void Handler::handleData(const HttpRequestPtr &req,
+                                   std::function<void(const HttpResponsePtr &)> &&callback) {
+    auto resp = HttpResponse::newHttpResponse();
     auto json = req->getJsonObject();
 
     if (json) {
