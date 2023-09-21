@@ -1,6 +1,7 @@
-#include <iostream>
+#include <drogon/drogon.h>
+using namespace drogon;
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
-    return 0;
+    LOG_INFO << "Server running on 127.0.0.1:8848";
+    app().addListener("127.0.0.1", 8848).run();
 }
