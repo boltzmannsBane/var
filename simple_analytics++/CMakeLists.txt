@@ -49,5 +49,5 @@ target_link_libraries(${PROJECT_NAME} PRIVATE drogon spdlog::spdlog handlers)
 # For tests
 file(GLOB_RECURSE TEST_SOURCES CONFIGURE_DEPENDS tests/*.cc)
 add_executable(${PROJECT_NAME}_tests ${TEST_SOURCES})
-target_link_libraries(${PROJECT_NAME}_tests PRIVATE drogon handlers)
+target_link_libraries(${PROJECT_NAME}_tests PRIVATE drogon gtest gtest_main gmock handlers)
 

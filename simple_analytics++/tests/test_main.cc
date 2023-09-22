@@ -1,8 +1,12 @@
 #define DROGON_TEST_MAIN
-#include <drogon/drogon_test.h>
 #include <drogon/drogon.h>
+#include <drogon/drogon_test.h>
+#include <drogon/HttpClient.h>
+#include <drogon/HttpRequest.h>
 #include <future>
 #include <thread>
+#include <iostream>
+#include "handlers/Handler.h"
 
 using namespace drogon;
 
@@ -28,22 +32,22 @@ int main(int argc, char *argv[])
     std::future<void> f1 = p1.get_future();
 
     // Start the main loop on another thread
-    // std::thread thr([&]() {
+    std::thread thr([&]() {
         // Initialize your drogon app, set routes, etc.
-        app().addListener("127.0.0.1", 8848).run();
+        app().addListener("127.0.0.1", 8848);
 
         // Queue the promise to be fulfilled after starting the loop
-        // app().getLoop()->queueInLoop([&p1]() { p1.set_value(); });
-        // app().run();
-    // });
+        app().getLoop()->queueInLoop([&p1]() { p1.set_value(); });
+        app().run();
+    });
 
     // The future is only satisfied after the event loop started
-    // f1.get();
-    // int status = test::run(argc, argv);
-    //
-    // // Ask the event loop to shutdown and wait
-    // app().getLoop()->queueInLoop([]() { app().quit(); });
-    // thr.join();
-    //
-    // return status;
+    f1.get();
+    int status = test::run(argc, argv);
+
+    // Ask the event loop to shutdown and wait
+    app().getLoop()->queueInLoop([]() { app().quit(); });
+    thr.join();
+
+    return status;
 }
