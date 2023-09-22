@@ -38,13 +38,16 @@ FetchContent_MakeAvailable(drogon spdlog googletest)
 # Include directories for your main project
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
+add_library(handlers STATIC include/handlers/handler.cc)
+target_link_libraries(handlers PRIVATE spdlog::spdlog drogon)
+
 # Create the main executable
-file(GLOB_RECURSE PROJECT_SOURCES CONFIGURE_DEPENDS src/*.cpp)
+file(GLOB_RECURSE PROJECT_SOURCES CONFIGURE_DEPENDS src/*.cc)
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
-target_link_libraries(${PROJECT_NAME} PRIVATE drogon spdlog::spdlog)
+target_link_libraries(${PROJECT_NAME} PRIVATE drogon spdlog::spdlog handlers)
 
 # For tests
-file(GLOB_RECURSE TEST_SOURCES CONFIGURE_DEPENDS tests/*.cpp)
+file(GLOB_RECURSE TEST_SOURCES CONFIGURE_DEPENDS tests/*.cc)
 add_executable(${PROJECT_NAME}_tests ${TEST_SOURCES})
-target_link_libraries(${PROJECT_NAME}_tests PRIVATE gtest gtest_main gmock drogon)
+target_link_libraries(${PROJECT_NAME}_tests PRIVATE drogon handlers)
 
