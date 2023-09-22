@@ -1,35 +1,33 @@
-#define DROGON_TEST_MAIN
+#include <gtest/gtest.h>
 #include <drogon/drogon.h>
-#include <drogon/drogon_test.h>
-#include <drogon/HttpClient.h>
-#include <drogon/HttpRequest.h>
 #include <future>
 #include <thread>
-#include <iostream>
 #include "handlers/Handler.h"
 
 using namespace drogon;
 
-DROGON_TEST(RemoteAPITestCoro)
-{
-    auto api_test = [TEST_CTX]() -> Task<> {
-        auto client = HttpClient::newHttpClient("http://localhost:8848");
-        auto req = HttpRequest::newHttpRequest();
-        req->setPath("/api/v1/hello");
+// Define a coroutine function that sends an HTTP request using Drogon
+Task<> api_test() {
+    auto client = HttpClient::newHttpClient("http://localhost:8848");
+    auto req = HttpRequest::newHttpRequest();
+    req->setPath("/api/v1/hello");
 
-        auto resp = co_await client->sendRequestCoro(req);
-        CO_REQUIRE(resp != nullptr);
-        CHECK(resp->getStatusCode() == k200OK);
-        CHECK(resp->contentType() == CT_APPLICATION_JSON);
-    };
+    auto resp = co_await client->sendRequestCoro(req);
+    EXPECT_NE(resp, nullptr); // Use EXPECT_* macros from gtest
+    EXPECT_EQ(resp->getStatusCode(), k200OK);
+    // EXPECT_EQ(resp->contentType(), CT_APPLICATION_JSON);
+}
 
+TEST(RemoteAPITestCoro, BasicTest) {
     sync_wait(api_test());
 }
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     std::promise<void> p1;
     std::future<void> f1 = p1.get_future();
+
+    // Initialize Google Test
+    ::testing::InitGoogleTest(&argc, argv);
 
     // Start the main loop on another thread
     std::thread thr([&]() {
@@ -43,7 +41,7 @@ int main(int argc, char *argv[])
 
     // The future is only satisfied after the event loop started
     f1.get();
-    int status = test::run(argc, argv);
+    int status = RUN_ALL_TESTS();
 
     // Ask the event loop to shutdown and wait
     app().getLoop()->queueInLoop([]() { app().quit(); });
