@@ -1,4 +1,5 @@
-cmake_minimum_required(VERSION 3.14)
+# cmake -DCMAKE_CXX_COMPILER=/usr/bin/clang .. && make   
+cmake_minimum_required(VERSION 3.27)
 project(simple_analytics)
 
 set(CMAKE_CXX_STANDARD 20)
