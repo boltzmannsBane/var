@@ -37,7 +37,7 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_Declare(
   jsoncpp
   GIT_REPOSITORY https://github.com/open-source-parsers/jsoncpp.git
-  GIT_TAG        1.9.4  # or whichever tag/version you want
+  GIT_TAG        1.9.5  # or whichever tag/version you want
 )
 
 # Make the fetched content available
@@ -47,14 +47,14 @@ FetchContent_MakeAvailable(drogon spdlog googletest jsoncpp)
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
 add_library(handlers STATIC include/handlers/handler.cc)
-target_link_libraries(handlers PRIVATE spdlog::spdlog drogon jsoncpp_lib)  # linking jsoncpp here
+target_link_libraries(handlers PRIVATE spdlog::spdlog drogon )  # linking jsoncpp here
 
 # Create the main executable
 file(GLOB_RECURSE PROJECT_SOURCES CONFIGURE_DEPENDS src/*.cc)
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
-target_link_libraries(${PROJECT_NAME} PRIVATE drogon spdlog::spdlog handlers jsoncpp_lib)  # and here
+target_link_libraries(${PROJECT_NAME} PRIVATE drogon spdlog::spdlog handlers )  # and here
 
 # For tests
 file(GLOB_RECURSE TEST_SOURCES CONFIGURE_DEPENDS tests/*.cc)
 add_executable(${PROJECT_NAME}_tests ${TEST_SOURCES})
-target_link_libraries(${PROJECT_NAME}_tests PRIVATE drogon gtest gtest_main gmock handlers jsoncpp_lib)  # and also here
+target_link_libraries(${PROJECT_NAME}_tests PRIVATE drogon gtest gtest_main gmock handlers )  # and also here
