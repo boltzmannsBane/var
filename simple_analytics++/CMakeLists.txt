@@ -43,6 +43,12 @@ FetchContent_Declare(
 # Make the fetched content available
 FetchContent_MakeAvailable(drogon spdlog googletest jsoncpp)
 
+# set include directoreis for jsoncpp
+get_target_property(JSON_INC_PATH jsoncpp_lib INTERFACE_INCLUDE_DIRECTORIES)
+include_directories(${JSON_INC_PATH})
+
+target_link_libraries(drogon PUBLIC jsoncpp_lib)
+
 # Include directories for your main project
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
