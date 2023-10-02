@@ -25,17 +25,15 @@ FetchContent_Declare(
   GIT_TAG        v1.12.0  
 )
 
-# GoogleTest
+# doctest
 FetchContent_Declare(
-  googletest
-  GIT_REPOSITORY https://github.com/google/googletest.git
-  GIT_TAG        v1.14.0
+  doctest
+  GIT_REPOSITORY https://github.com/doctest/doctest.git
+  GIT_TAG        v2.4.11  
 )
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-
 
 # Make the fetched content available
-FetchContent_MakeAvailable(spdlog googletest drogon)
+FetchContent_MakeAvailable(spdlog doctest drogon)
 
 # Include directories
 include_directories(${CMAKE_SOURCE_DIR}/internal)
@@ -44,10 +42,10 @@ include_directories(${CMAKE_SOURCE_DIR}/internal)
 add_executable(simple_analytics src/main.cc internal/handlers/handler.cc)
 
 # Link the main executable to the necessary libraries
-target_link_libraries(simple_analytics PRIVATE drogon spdlog )
+target_link_libraries(simple_analytics PRIVATE drogon spdlog)
 
 # Define the test executable
 add_executable(simple_analytics_tests tests/test.cc internal/handlers/handler.cc)
 
-# Link the test executable to its dependencies
-target_link_libraries(simple_analytics_tests PRIVATE drogon spdlog gtest gtest_main)
+# Link the test executable to its dependencies (doctest is primarily header-only, but linking is still a good practice in case that changes)
+target_link_libraries(simple_analytics_tests PRIVATE drogon spdlog doctest::doctest)

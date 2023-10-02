@@ -1,52 +1,11 @@
-#include <doctest/doctest.h>
-#include <drogon/drogon.h>
-#include <future>
-#include <thread>
-#include "handlers/Handler.h"
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include "doctest/doctest.h"
 
-using namespace drogon;
+int factorial(int number) { return number <= 1 ? number : factorial(number - 1) * number; }
 
-// Define a coroutine function that sends an HTTP request using Drogon
-Task<> api_test() {
-    auto client = HttpClient::newHttpClient("http://localhost:8848");
-    auto req = HttpRequest::newHttpRequest();
-    req->setPath("/api/v1/hello");
-
-    auto resp = co_await client->sendRequestCoro(req);
-    DOCTEST_CHECK(resp != nullptr); // Use DOCTEST_CHECK instead of EXPECT_*
-    DOCTEST_CHECK(resp->getStatusCode() == k200OK);
-    // DOCTEST_CHECK(resp->contentType() == CT_APPLICATION_JSON);
-}
-
-DOCTEST_TEST_CASE("RemoteAPITestCoro - BasicTest") {
-    sync_wait(api_test());
-}
-
-int main(int argc, char *argv[]) {
-    std::promise<void> p1;
-    std::future<void> f1 = p1.get_future();
-
-    // Initialize doctest
-    doctest::Context context;
-    context.applyCommandLine(argc, argv);
-
-    // Start the main loop on another thread
-    std::thread thr([&]() {
-        // Initialize your drogon app, set routes, etc.
-        app().addListener("127.0.0.1", 8848);
-
-        // Queue the promise to be fulfilled after starting the loop
-        app().getLoop()->queueInLoop([&p1]() { p1.set_value(); });
-        app().run();
-    });
-
-    // The future is only satisfied after the event loop started
-    f1.get();
-    int status = context.run();
-
-    // Ask the event loop to shutdown and wait
-    app().getLoop()->queueInLoop([]() { app().quit(); });
-    thr.join();
-
-    return status;
+TEST_CASE("testing the factorial function") {
+    CHECK(factorial(1) == 1);
+    CHECK(factorial(2) == 2);
+    CHECK(factorial(3) == 6);
+    CHECK(factorial(10) == 3628800);
 }
