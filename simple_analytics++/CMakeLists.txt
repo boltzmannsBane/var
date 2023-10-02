@@ -1,6 +1,6 @@
-# cmake -DCMAKE_CXX_COMPILER=/usr/bin/clang .. && make   
 cmake_minimum_required(VERSION 3.27)
 project(simple_analytics)
+set(CMAKE_OSX_ARCHITECTURES arm64)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -33,34 +33,21 @@ FetchContent_Declare(
 )
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 
-# jsoncpp
-FetchContent_Declare(
-  jsoncpp
-  GIT_REPOSITORY https://github.com/open-source-parsers/jsoncpp.git
-  GIT_TAG        1.9.5  # or whichever tag/version you want
-)
 
 # Make the fetched content available
-FetchContent_MakeAvailable(drogon spdlog googletest jsoncpp)
+FetchContent_MakeAvailable(spdlog googletest drogon)
 
-# set include directoreis for jsoncpp
-get_target_property(JSON_INC_PATH jsoncpp_lib INTERFACE_INCLUDE_DIRECTORIES)
-include_directories(${JSON_INC_PATH})
+# Include directories
+include_directories(${CMAKE_SOURCE_DIR}/internal)
 
-target_link_libraries(drogon PUBLIC jsoncpp_lib)
+# Define the main executable
+add_executable(simple_analytics src/main.cc internal/handlers/handler.cc)
 
-# Include directories for your main project
-include_directories(${PROJECT_SOURCE_DIR}/include)
+# Link the main executable to the necessary libraries
+target_link_libraries(simple_analytics PRIVATE drogon spdlog )
 
-add_library(handlers STATIC include/handlers/handler.cc)
-target_link_libraries(handlers PRIVATE spdlog::spdlog drogon )  # linking jsoncpp here
+# Define the test executable
+add_executable(simple_analytics_tests tests/test.cc internal/handlers/handler.cc)
 
-# Create the main executable
-file(GLOB_RECURSE PROJECT_SOURCES CONFIGURE_DEPENDS src/*.cc)
-add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
-target_link_libraries(${PROJECT_NAME} PRIVATE drogon spdlog::spdlog handlers )  # and here
-
-# For tests
-file(GLOB_RECURSE TEST_SOURCES CONFIGURE_DEPENDS tests/*.cc)
-add_executable(${PROJECT_NAME}_tests ${TEST_SOURCES})
-target_link_libraries(${PROJECT_NAME}_tests PRIVATE drogon gtest gtest_main gmock handlers )  # and also here
+# Link the test executable to its dependencies
+target_link_libraries(simple_analytics_tests PRIVATE drogon spdlog gtest gtest_main)
