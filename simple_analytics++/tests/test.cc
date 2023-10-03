@@ -1,66 +1,86 @@
 #define DOCTEST_CONFIG_IMPLEMENT
 #include <doctest/doctest.h>
-#include <drogon/drogon.h>
 #include <event2/event.h>
-#include <event2/bufferevent.h>
-// other libevent headers as needed...
-#include <future>
+#include <event2/http.h>
+#include <event2/buffer.h>
+#include <event2/keyvalq_struct.h>
+#include <iostream>
+#include <string>
+#include <cstring>
 #include <thread>
-#include "handlers/Handler.h"
 
-using namespace drogon;
+// Global variable to store HTTP response data
+std::string http_response_data;
+struct event_base *base; 
 
-const int PORT = 8848;
-
-// Define a coroutine function that sends an HTTP request using Drogon
-Task<> api_test() {
-    auto client = HttpClient::newHttpClient("http://127.0.0.1:{}", PORT);
-    auto req = HttpRequest::newHttpRequest();
-    req->setPath("/api/v1/hello");
-    LOG_INFO << "prepping to make the request";
-
-    try {
-        // Set a timeout for the request
-        req->setTimeOut(5.0);  // Set a timeout of 5 seconds
-        
-        auto resp = co_await client->sendRequestCoro(req);
-
-        // Log details about the response
-        LOG_INFO << "Response received:";
-        LOG_INFO << "    Status code: " << resp->getStatusCode();
-        LOG_INFO << "    Body: " << resp->getBody();
-    }
-    catch (const std::exception &e) {
-        std::cerr << "Caught general exception: " << e.what() << std::endl;
-    }
-    catch (...) {
-        std::cerr << "Caught unknown exception" << std::endl;
+// Callback function to handle the HTTP request response
+void http_request_done(struct evhttp_request *req, void *arg) {
+    if (req == nullptr) {
+        // Handle error
+        std::cerr << "Request failed" << std::endl;
+        return;
     }
 
-    LOG_INFO << "request finished or timed out";
-    // CHECK(resp != nullptr); 
-    // CHECK(resp->getStatusCode() == k200OK);
-    // CHECK(resp->contentType() == CT_APPLICATION_JSON);
+    char buffer[256];
+    int nread;
+    while ((nread = evbuffer_remove(evhttp_request_get_input_buffer(req),
+                                     buffer, sizeof(buffer)))
+           > 0) {
+        // Append the response data to the global variable
+        http_response_data.append(buffer, nread);
+    }
+
+    // Notify the main thread that the response has been received
+    auto* base = static_cast<struct event_base*>(arg);
+    event_base_loopbreak(base);
 }
 
-TEST_CASE("RemoteAPITestCoro - BasicTest") {
-    sync_wait(api_test());
+void server_thread() {
+    base = event_base_new();  // Set the global event_base
+    struct evhttp *http = evhttp_new(base);
+
+    evhttp_set_cb(http, "/api/v1/hello", [](struct evhttp_request *req, void *arg) {
+        auto *buf = evbuffer_new();
+        evbuffer_add_printf(buf, "Hello from /api/v1/hello endpoint!");
+        evhttp_send_reply(req, HTTP_OK, "OK", buf);
+        evbuffer_free(buf);
+    }, nullptr);
+
+    evhttp_bind_socket(http, "127.0.0.1", 8848);
+    event_base_dispatch(base);
+
+    evhttp_free(http);
+    event_base_free(base);
+}
+
+TEST_CASE("HTTP Request Test") {
+    // Initialize libevent
+    event_base *base = event_base_new();
+
+    // Create an HTTP connection
+    evhttp_connection *conn = evhttp_connection_base_new(base, nullptr, "127.0.0.1", 8848);
+
+    // Create an HTTP request
+    evhttp_request *req = evhttp_request_new(http_request_done, base);
+
+    // Make an HTTP GET request
+    evhttp_make_request(conn, req, EVHTTP_REQ_GET, "/api/v1/hello");
+
+    // Dispatch events
+    event_base_dispatch(base);
+
+    // Clean up
+    evhttp_connection_free(conn);
+    event_base_free(base);
+
+    // Check the HTTP response data
+    CHECK(http_response_data == "Hello from /api/v1/hello endpoint!");
 }
 
 int main(int argc, char *argv[]) {
-    // Initialize doctest
-    doctest::Context context;
-
-    // overrides
-    context.setOption("no-breaks", true);  // don't break in the debugger when assertions fail
-    context.applyCommandLine(argc, argv);
-
-    // Run the test cases
-    int status = context.run();
-
-    // Ask the event loop to shutdown and wait
-    // app().quit();
-    // thr.join();
-
-    return status;
+    std::thread serverThread(server_thread);
+    int result = doctest::Context(argc, argv).run();
+    event_base_loopbreak(base);  // Stop the event loop
+    serverThread.join();
+    return result;
 }

@@ -1,8 +1,4 @@
 #include <spdlog/spdlog.h>
-#include <drogon/drogon.h>
-#include "handlers/Handler.h"
-
-using namespace drogon;
 
 void initLogger() {
     // Create color multi threaded logger
@@ -12,6 +8,6 @@ void initLogger() {
 
 int main() {
     initLogger();
-    LOG_INFO << "Server running on 127.0.0.1:8848";
-    app().addListener("127.0.0.1", 8848).run();
+    // LOG_INFO << "Server running on 127.0.0.1:8848";
+    // app().addListener("127.0.0.1", 8848).run();
 }
