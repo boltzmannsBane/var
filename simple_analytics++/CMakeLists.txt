@@ -11,11 +11,18 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 include(FetchContent)
 
-# Fetch Drogon
+# drogon
 FetchContent_Declare(
   drogon
   GIT_REPOSITORY https://github.com/an-tao/drogon.git
   GIT_TAG        v1.8.4 
+)
+
+# drogon
+FetchContent_Declare(
+  libevent
+  GIT_REPOSITORY https://github.com/libevent/libevent.git
+  GIT_TAG        release-2.1.12-stable 
 )
 
 # spdlog
@@ -33,7 +40,7 @@ FetchContent_Declare(
 )
 
 # Make the fetched content available
-FetchContent_MakeAvailable(spdlog doctest drogon)
+FetchContent_MakeAvailable(spdlog doctest libevent drogon)
 
 # Include directories
 include_directories(${CMAKE_SOURCE_DIR}/internal)
@@ -48,4 +55,4 @@ target_link_libraries(simple_analytics PRIVATE drogon spdlog)
 add_executable(simple_analytics_tests tests/test.cc internal/handlers/handler.cc)
 
 # Link the test executable to its dependencies (doctest is primarily header-only, but linking is still a good practice in case that changes)
-target_link_libraries(simple_analytics_tests PRIVATE drogon spdlog doctest::doctest)
+target_link_libraries(simple_analytics_tests PRIVATE drogon spdlog libevent doctest::doctest)

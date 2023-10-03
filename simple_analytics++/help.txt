@@ -1,3 +1,5 @@
 cmake -DCMAKE_CXX_COMPILER=/usr/bin/clang++ -DCMAKE_C_COMPILER=/usr/bin/clang ..  
 
 cmake -DCMAKE_CXX_COMPILER=/usr/bin/clang .. && make   
+
+find [project_root] -name drogon.h
