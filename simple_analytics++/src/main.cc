@@ -28,7 +28,7 @@ int main() {
         return 1;
     }
 
-    evhttp_set_cb(http, "/ping", pingHandler, nullptr);
+    evhttp_set_cb(http, "/ping", ping, nullptr);
     // evhttp_set_cb(http, "/hello", post_handler, nullptr);
 
     handle = evhttp_bind_socket_with_handle(http, "0.0.0.0", 8080);
