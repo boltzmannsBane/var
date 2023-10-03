@@ -1,6 +1,8 @@
 #pragma once
 
+#include <spdlog/spdlog.h>
 #include <event2/http.h>
 #include <event2/buffer.h>
 
-void ping(struct evhttp_request *req, void *arg);
+void initLogger();
+void run();

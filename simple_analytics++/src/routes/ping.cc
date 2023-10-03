@@ -1,6 +1,3 @@
-#ifndef PING_HANDLERS_H
-#define PING_HANDLERS_H
-
 #include <event2/http.h>
 #include <event2/buffer.h>
 
@@ -30,5 +27,3 @@ void ping(struct evhttp_request *req, void *arg) {
       evhttp_send_error(req, HTTP_BADMETHOD, NULL);
   }
 }
-
-#endif // PING_HANDLERS_H
