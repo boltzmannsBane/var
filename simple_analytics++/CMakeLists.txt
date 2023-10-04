@@ -50,6 +50,6 @@ target_link_libraries(server PRIVATE startup telemetry handlers spdlog)
 add_executable(tests 
     tests/ping.cc 
 )
-#
+
 # Link the test executable to its dependencies 
 target_link_libraries(tests PRIVATE startup event spdlog doctest::doctest)
