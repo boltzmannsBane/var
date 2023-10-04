@@ -44,7 +44,7 @@ add_subdirectory(internal)
 add_executable(server 
     src/main.cc
 )
-target_link_libraries(server PRIVATE startup telemetry handlers)
+target_link_libraries(server PRIVATE startup telemetry handlers spdlog)
 
 # # Define the test executable
 add_executable(tests 

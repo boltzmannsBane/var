@@ -4,7 +4,7 @@ target_link_libraries(startup PRIVATE event handlers)
 
 add_library(handlers)
 target_sources(handlers PRIVATE handlers/ping.cc)
-target_link_libraries(handlers PRIVATE event spdlog)
+target_link_libraries(handlers PRIVATE event telemetry)
 
 add_library(telemetry)
 target_sources(telemetry PRIVATE telemetry/telemetry.cc)

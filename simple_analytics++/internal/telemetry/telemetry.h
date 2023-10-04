@@ -1,3 +1,10 @@
 #pragma once
 
+#include <string> 
+using namespace std;
+
 void initLogger();
+void log_start(string req_id, string operation, string caller_uid);
+void log_success(string req_id, int code,  string status);
+void log_error(std::string req_id, int code,  string status, string msg);
+
