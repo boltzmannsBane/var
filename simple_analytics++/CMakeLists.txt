@@ -25,15 +25,8 @@ FetchContent_Declare(
   GIT_TAG        v1.12.0  
 )
 
-# doctest
-FetchContent_Declare(
-  doctest
-  GIT_REPOSITORY https://github.com/onqtam/doctest.git
-  GIT_TAG        v2.4.11  
-)
-
 # Make the fetched content available
-FetchContent_MakeAvailable(spdlog doctest libevent)
+FetchContent_MakeAvailable(spdlog libevent)
 
 # Include directories
 include_directories(${CMAKE_SOURCE_DIR}/internal)
@@ -52,4 +45,4 @@ add_executable(tests
 )
 
 # Link the test executable to its dependencies 
-target_link_libraries(tests PRIVATE startup event spdlog doctest::doctest)
+target_link_libraries(tests PRIVATE startup event spdlog)
