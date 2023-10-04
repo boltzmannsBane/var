@@ -36,37 +36,20 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(spdlog doctest libevent)
 
 # Include directories
-include_directories(${CMAKE_SOURCE_DIR}/src)
+include_directories(${CMAKE_SOURCE_DIR}/internal)
 
-# server lib
-add_library(server_lib
-    src/startup.cc 
-    src/configuration.cc 
-    src/telemetry.cc
-)
-target_link_libraries(server_lib PRIVATE event spdlog routes_lib)
-
-# routes lib
-add_library(routes_lib
-    src/routes/ping.cc  
-    src/routes/hello.cc 
-)
-
-target_link_libraries(routes_lib PRIVATE event spdlog)
+add_subdirectory(internal)
 
 # Define the main executable
 add_executable(server 
     src/main.cc
 )
+target_link_libraries(server PRIVATE startup telemetry handlers)
 
-# Link the main executable to the necessary libraries
-target_link_libraries(server PRIVATE server_lib event spdlog)
-
-# Define the test executable
+# # Define the test executable
 add_executable(tests 
     tests/ping.cc 
-    tests/hello.cc
 )
-
+#
 # Link the test executable to its dependencies 
-target_link_libraries(tests PRIVATE server_lib event spdlog doctest::doctest)
+target_link_libraries(tests PRIVATE startup event spdlog doctest::doctest)

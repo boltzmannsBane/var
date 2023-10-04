@@ -3,3 +3,7 @@ cmake -DCMAKE_CXX_COMPILER=/usr/bin/clang++ -DCMAKE_C_COMPILER=/usr/bin/clang ..
 cmake -DCMAKE_CXX_COMPILER=/usr/bin/clang .. && make   
 
 find [project_root] -name drogon.h
+
+https://stackoverflow.com/questions/32126613/c-equivalent-of-rusts-resultt-e-type
+
+https://en.cppreference.com/w/cpp/compiler_support
