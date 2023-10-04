@@ -2,7 +2,7 @@
 #include <event2/http.h>
 #include <event2/buffer.h>
 #include <evhttp.h>
-#include "../handlers/handlers.h"
+#include "handlers/handlers.h"
 
 int run()  {
     struct event_base *base;
