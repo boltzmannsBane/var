@@ -1,13 +1,14 @@
 #include <event2/http.h>
 #include <event2/buffer.h>
 #include <telemetry/telemetry.h>
+#include <utils/utils.h>
 
 using namespace std;
 
 void ping(struct evhttp_request *req, void *arg) {
 
   evhttp_cmd_type method = evhttp_request_get_command(req);
-  string reqId = "123";
+  string reqId = generate_unique_id();
   string callerId = "randomCallerId";
   if (method == EVHTTP_REQ_GET) {
     log_start(reqId, "GET /ping", callerId);
