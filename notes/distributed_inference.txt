@@ -1,0 +1,12 @@
+MPI
+https://curc.readthedocs.io/en/latest/programming/MPI-C.html
+
+llama.cpp
+https://github.com/ggerganov/llama.cpp/pull/2099
+https://github.com/ggerganov/llama.cpp/issues/2164https://github.com/ggerganov/llama.cpp/issues/2164
+
+different pis performance
+https://www.youtube.com/watch?v=nBtOEmUqASQ&t=11s
+
+llm intro
+https://www.youtube.com/watch?v=jkrNMKz9pWU

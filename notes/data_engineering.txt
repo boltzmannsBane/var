@@ -1,0 +1,12 @@
+cheap data lake
+https://tobilg.com/casual-data-engineering-or-a-poor-mans-data-lake-in-the-cloud-part-i
+
+spark alternatives
+https://www.pola.rs/
+https://www.ray.io/
+https://duckdb.org/
+  thread:
+  https://x.com/neelesh_salian/status/1709444318921097359?s=20
+
+
+
