@@ -4,7 +4,10 @@
 #include <evhttp.h>
 #include "handlers/handlers.h"
 
-int run()  {
+namespace startup {
+
+int run()  
+{
     struct event_base *base;
     struct evhttp *http;
     struct evhttp_bound_socket *handle;
@@ -21,7 +24,7 @@ int run()  {
         return 1;
     }
 
-    evhttp_set_cb(http, "/ping", ping, nullptr);
+    evhttp_set_cb(http, "/ping", handlers::ping, nullptr);
     // evhttp_set_cb(http, "/hello", post_handler, nullptr);
 
     handle = evhttp_bind_socket_with_handle(http, "0.0.0.0", 8080);
@@ -33,4 +36,6 @@ int run()  {
     event_base_dispatch(base);
 
     return 0;
+}
+
 }

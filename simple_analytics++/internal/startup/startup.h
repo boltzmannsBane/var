@@ -1,3 +1,5 @@
 #pragma once
 
-void run();
+namespace startup {
+  void run();
+}

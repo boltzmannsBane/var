@@ -30,14 +30,13 @@ FetchContent_MakeAvailable(spdlog libevent)
 
 # Include directories
 include_directories(${CMAKE_SOURCE_DIR}/internal)
-
 add_subdirectory(internal)
 
 # Define the main executable
 add_executable(server 
     src/main.cc
 )
-target_link_libraries(server PRIVATE startup telemetry handlers spdlog)
+target_link_libraries(server PRIVATE startup telemetry handlers)
 
 # # Define the test executable
 add_executable(tests 
@@ -45,4 +44,4 @@ add_executable(tests
 )
 
 # Link the test executable to its dependencies 
-target_link_libraries(tests PRIVATE startup event spdlog)
+target_link_libraries(tests PRIVATE startup event)
