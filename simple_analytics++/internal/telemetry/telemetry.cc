@@ -13,7 +13,7 @@ void initLogger()
 
 void log_server_start(string port) 
 {
-  spdlog::info("Server started on 127.0.0.1:{}", port);
+    spdlog::info("Server started on 127.0.0.1:{}", port);
 }
 
 void log_start(string req_id, string operation, string caller_uid) 
