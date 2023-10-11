@@ -21,6 +21,7 @@ void ping(struct evhttp_request *req, void *arg)
     evbuffer_free(evb);
     telemetry::log_success(reqId, HTTP_OK,  "OK");
   } 
+
   // else if (method == EVHTTP_REQ_POST) {
   //   size_t len;
   //   char *post_data = (char *)EVBUFFER_DATA(req->input_buffer);
@@ -33,6 +34,7 @@ void ping(struct evhttp_request *req, void *arg)
   //   evbuffer_free(evb);
   //
   // } 
+
   else {
     evhttp_send_error(req, HTTP_BADMETHOD, NULL);
     telemetry::log_error(reqId, HTTP_BADMETHOD, "Bad Method", "Operation doesn't exists");
