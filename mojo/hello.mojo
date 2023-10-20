@@ -1,4 +1,5 @@
 from python import Python
+from "math.h" import cos
 
 var np: PythonObject = None
 
@@ -14,8 +15,9 @@ fn load():
 
 
 fn main():
-    load()
-    np_test()
+    print(cos(0))
+    # load()
+    # np_test()
 
 
 fn np_test():
