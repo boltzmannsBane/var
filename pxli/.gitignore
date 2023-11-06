@@ -1,3 +1,4 @@
 *.toml
 proxmox_cookie.txt
 build/
+.cache/
