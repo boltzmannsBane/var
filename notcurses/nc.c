@@ -53,7 +53,7 @@ int main(void) {
             }
 
             // Sleep for a bit to slow down the movement
-            usleep(50000); // 50ms
+            usleep(10000); // 50ms
         }
     }
 
