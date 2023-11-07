@@ -1,26 +1,37 @@
 #include <notcurses/notcurses.h>
-#include <unistd.h> // for sleep
 
-int main() {
-  struct notcurses_options opts = {
-    .loglevel = NCLOGLEVEL_ERROR, // Set log level to see errors
+int main(void) {
+  struct notcurses_options options = {
+    .flags = NCOPTION_NO_ALTERNATE_SCREEN | NCOPTION_SUPPRESS_BANNERS,
   };
-  struct notcurses* nc = notcurses_init(&opts, NULL);
-  if (!nc) {
-    return 1;
+  struct notcurses* nc = notcurses_core_init(&options, NULL);
+  if (nc == NULL) {
+    return -1;
   }
 
   struct ncplane* stdplane = notcurses_stdplane(nc);
-  if(ncplane_putstr(stdplane, "Hello World!") < 0){
+
+  // Use unsigned int for dimensions
+  unsigned rows, cols;
+  ncplane_dim_yx(stdplane, &rows, &cols);
+
+  const char* message = "Hello, World!";
+  int message_len = strlen(message);
+  unsigned y = rows / 2;
+  unsigned x = (cols - message_len) / 2;
+
+  if (ncplane_putstr_yx(stdplane, y, x, message) < 0) {
     notcurses_stop(nc);
-    return 2;
+    return -1;
   }
-  if(notcurses_render(nc) < 0){
-    notcurses_stop(nc);
-    return 3;
-  }
-  sleep(2); // Wait for 2 seconds before exiting
+
+  notcurses_render(nc);
+
+  // Use notcurses_get_blocking to wait for key press
+  ncinput ni; // Declare the ncinput struct
+  notcurses_get_blocking(nc, &ni); // Correct function call
 
   notcurses_stop(nc);
+
   return 0;
 }
