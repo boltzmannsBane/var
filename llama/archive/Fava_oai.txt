@@ -1,0 +1,18 @@
+The study, titled 'Eszopiclone co-administered with fluoxetine in patients with insomnia coexisting with major depressive disorder,' is published in 'Biol Psychiatry' and authored by Fava. The article, identified with PubMed ID 16581036, explores the effects of combining Eszopiclone (a sleep aid) with Fluoxetine (an antidepressant) in treating patients who have both insomnia and major depressive disorder.
+
+Key aspects of the study include:
+
+1. **Disease Focus**: The primary focus is on major depressive disorder, specifically addressing a coexisting condition, insomnia.
+2. **Therapies**: The study investigates two main therapies: Fluoxetine, an antidepressant, and Eszopiclone, a sleep aid. Fluoxetine was administered in a daily dose of 20-40 mg in the morning over a 10-week period. Eszopiclone was given at a dose of 3 mg at night for 8 weeks. Additionally, a placebo group was included for comparison.
+3. **Study Design and Characteristics**:
+   - The research is a double-blind, randomized clinical trial.
+   - A total of 545 participants were randomized into two groups, with nearly equal gender distribution (approximately two-thirds women and one-third men).
+   - The median age of participants was around 40 years.
+   - The study was conducted in the USA, with participants primarily being White/European American or Black/African American.
+4. **Outcomes**:
+   - The outcomes measured included compliance rates, uncompliance rates, and the efficacy of the treatment combination in alleviating symptoms of insomnia.
+   - The study considered safety and efficacy as key outcome intentions.
+   - The efficacy was measured using the Insomnia Severity Index (ISI), with a target score of 7 or less indicating effective treatment.
+   - Results show a significant difference in the rate of achieving the target ISI score between the treatment and placebo groups.
+
+Overall, the study provides comprehensive data on the effectiveness of combining Eszopiclone with Fluoxetine for patients suffering from insomnia and major depressive disorder, highlighting the impact of this treatment combination on sleep and mood symptoms.

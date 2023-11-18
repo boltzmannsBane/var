@@ -1,0 +1,9 @@
+'Eszopiclone co-administered with fluoxetine in patients with insomnia coexisting with major depressive disorder,' is published in 'Biol Psychiatry' and authored by Fava. The article, identified with PubMed ID 16581036, explores the effects of combining Eszopiclone (a sleep aid) with Fluoxetine (an antidepressant) in treating patients who have both insomnia and major depressive disorder.
+
+major depressive disorder with coexisting insomnia. The study population consisted of 545 patients randomized into two groups - 275 received fluoxetine plus eszopiclone, and 270 received fluoxetine plus placebo.
+
+There were 3 main therapies used in the study - fluoxetine, eszopiclone, and placebo. The fluoxetine dose was 20-40 mg daily. The eszopiclone dose was 3 mg at night. Both fluoxetine and eszopiclone were given for 8 weeks. Placebo was also given at night for 8 weeks.
+
+This was a double-blind, randomized clinical trial conducted at 67 sites in the USA. The study sample included 545 patients, 66% women, with median age around 41 years. Patients were randomized and evaluable for analysis.
+
+Outcomes measured included rates of compliance, insomnia, depression, response, remission, sleep latency, wake after sleep onset, and total sleep time. Various safety outcomes were also assessed including toxicity, headache, nausea, xerostomia, nervousness, dizziness, asthenia, and infections. Statistically significant differences between fluoxetine + eszopiclone versus fluoxetine + placebo were seen for insomnia, depression, response, remission, sleep latency, wake after sleep onset, and total sleep time.
