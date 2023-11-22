@@ -1,7 +1,13 @@
 llama-cpp-python
-pandas
-scipy
+pandas 
+scipy 
 numpy
 notebook
-
-
+openai
+transformers
+plotly
+matplotlib
+scikit-learn
+torch 
+torchvision
+gensim

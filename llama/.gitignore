@@ -2,3 +2,6 @@
 articles/
 models/
 llama/
+data/
+__pycache__/
+
