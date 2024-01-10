@@ -1,1 +1,0 @@
-https://www.reddit.com/r/cpp_questions/comments/xnpdwp/future_of_cc_with_webassembly/
